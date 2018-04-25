@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Display_Lyrics"
+            android:label="@string/title_activity_display__lyrics"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DisplayLyrics"></activity>
     </application>
 
 </manifest>
