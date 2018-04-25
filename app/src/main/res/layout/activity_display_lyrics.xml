@@ -7,4 +7,9 @@
     android:layout_height="match_parent"
     tools:context="edu.illinois.cs.cs125.lyrics.DisplayLyrics">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="355dp"
+        android:layout_height="700dp"
+        android:text="TextView" />
 </android.support.constraint.ConstraintLayout>

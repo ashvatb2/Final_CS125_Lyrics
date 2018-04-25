@@ -1,5 +1,6 @@
 package edu.illinois.cs.cs125.lyrics;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,18 +41,26 @@ public final class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Attach the handler to our UI button
-        final Button startAPICall = findViewById(R.id.button);
-        startAPICall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Log.d(TAG, "Start API button clicked");
-                startAPICall();
+//        final Button startAPICall = findViewById(R.id.button);
+//        startAPICall.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//                Log.d(TAG, "Start API button clicked");
+//                startAPICall();
+//            }
+//        });
+
+        Button yourButton = (Button) findViewById(R.id.button);
+
+        yourButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, DisplayLyrics.class));
             }
         });
 
-        // Make sure that our progress bar isn't spinning and style it a bit
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+//        // Make sure that our progress bar isn't spinning and style it a bit
+//        ProgressBar progressBar = findViewById(R.id.progressBar);
+//        progressBar.setVisibility(View.INVISIBLE);
     }
 
     /**
