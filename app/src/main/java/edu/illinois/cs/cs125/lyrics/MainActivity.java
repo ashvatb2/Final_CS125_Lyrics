@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public final class MainActivity extends AppCompatActivity {
@@ -41,20 +42,13 @@ public final class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Attach the handler to our UI button
-//        final Button startAPICall = findViewById(R.id.button);
-//        startAPICall.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View v) {
-//                Log.d(TAG, "Start API button clicked");
-//                startAPICall();
-//            }
-//        });
-
-        Button yourButton = (Button) findViewById(R.id.button);
-
-        yourButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        final Button startAPICall = findViewById(R.id.button);
+        startAPICall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Log.d(TAG, "Start API button clicked");
                 startActivity(new Intent(MainActivity.this, DisplayLyrics.class));
+                //startAPICall();
             }
         });
 
@@ -70,14 +64,25 @@ public final class MainActivity extends AppCompatActivity {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://api.lyrics.ovh/v1/artist/title",
+                    "https://api.lyrics.ovh/v1/Coldplay/Adventure of a Lifetime",
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
-                            final TextView helloTextView = (TextView) findViewById(R.id.displayLyrics);
-                            helloTextView.setText(response.toString());
-                            Log.d(TAG, response.toString());
+                            String result;
+                            try {
+                                if (response.get("lyrics") == null || response.get("lyrics") == "") {
+                                  // Provide a Toast error
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                if (response.get("lyrics") != null || response.get("lyrics") != "")
+                                startActivity(new Intent(MainActivity.this, DisplayLyrics.class));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                 @Override

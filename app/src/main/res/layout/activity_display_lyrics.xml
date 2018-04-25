@@ -10,6 +10,6 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="355dp"
-        android:layout_height="700dp"
+        android:layout_height="600dp"
         android:text="TextView" />
 </android.support.constraint.ConstraintLayout>
