@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Lyrics</string>
     <string name="title_activity_display__lyrics">Display_Lyrics</string>
+    <string name="title_activity_display_lyrics">DisplayLyrics</string>
 </resources>

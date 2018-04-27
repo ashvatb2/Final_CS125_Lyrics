@@ -20,7 +20,15 @@
             android:name=".Display_Lyrics"
             android:label="@string/title_activity_display__lyrics"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DisplayLyrics"></activity>
+        <activity
+            android:name=".DisplayLyrics"
+            android:label="@string/title_activity_display_lyrics"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.illinois.cs.cs125.lyrics.MainActivity" />
+        </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
