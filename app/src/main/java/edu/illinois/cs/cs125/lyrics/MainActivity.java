@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,16 +48,16 @@ public final class MainActivity extends AppCompatActivity {
         // Load the main layout for our activity
         setContentView(R.layout.activity_main);
 
+        final EditText song = findViewById(R.id.songName);
+        final EditText artist = findViewById(R.id.artistName);
+
         // Attach the handler to our UI button
         final Button Find = findViewById(R.id.button);
         Find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 Log.d(TAG, "Start API button clicked");
-                startAPICall();
-                Intent intent = new Intent(MainActivity.this, DisplayLyrics.class);
-                intent.putExtra("LYRICS", lyrics);
-                startActivity(intent);
+                startAPICall(song.getText().toString(), artist.getText().toString());
             }
         });
 
@@ -69,12 +70,12 @@ public final class MainActivity extends AppCompatActivity {
      * Make an API call.
      */
     String result;
-    void startAPICall() {
+    void startAPICall(final String song, final String artist) {
 
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "https://api.lyrics.ovh/v1/Coldplay/Adventure of a Lifetime",
+                    "https://api.lyrics.ovh/v1/"+artist+"/"+song,
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -83,13 +84,16 @@ public final class MainActivity extends AppCompatActivity {
                             JsonObject result = parser.parse(response.toString()).getAsJsonObject();
                             lyrics = "apples";
                             if (!result.has("lyrics")) {
-                                  // Store an error message in lyrics
+                                lyrics = "error";
                             }
-                            if (result.has("lyrics"));
-//                                    final TextView helloTextView = (TextView) findViewById(R.id.result);
-//                                    helloTextView.setText(response.toString());
-//                                    Log.d(TAG, response.toString());
+                            if (result.has("lyrics")) {
+                                lyrics = result.get("lyrics").getAsString();
                             }
+                            Intent intent = new Intent(MainActivity.this, DisplayLyrics.class);
+                            intent.putExtra("LYRICS", lyrics);
+                            startActivity(intent);
+                        }
+
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(final VolleyError error) {
@@ -98,7 +102,6 @@ public final class MainActivity extends AppCompatActivity {
             });
             requestQueue.add(jsonObjectRequest);
         } catch (Exception e) {
-            lyrics = "orange";
         }
 
     }
