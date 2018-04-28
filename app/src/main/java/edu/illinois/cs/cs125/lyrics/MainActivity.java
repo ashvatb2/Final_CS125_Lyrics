@@ -83,7 +83,7 @@ public final class MainActivity extends AppCompatActivity {
                             JsonParser parser = new JsonParser();
                             JsonObject result = parser.parse(response.toString()).getAsJsonObject();
                             lyrics = "apples";
-                            if (!result.has("lyrics")) {
+                            if (result.has("error")) {
                                 lyrics = "error";
                             }
                             if (result.has("lyrics")) {
