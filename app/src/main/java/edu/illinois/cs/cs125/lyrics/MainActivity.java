@@ -61,9 +61,6 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
 
-//        // Make sure that our progress bar isn't spinning and style it a bit
-//        ProgressBar progressBar = findViewById(R.id.progressBar);
-//        progressBar.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -82,12 +79,10 @@ public final class MainActivity extends AppCompatActivity {
                         public void onResponse(final JSONObject response) {
                             JsonParser parser = new JsonParser();
                             JsonObject result = parser.parse(response.toString()).getAsJsonObject();
-                            lyrics = "apples";
-                            if (result.has("error")) {
-                                lyrics = "error";
-                            }
                             if (result.has("lyrics")) {
                                 lyrics = result.get("lyrics").getAsString();
+                            } else {
+                                lyrics = "Wrong input";
                             }
                             Intent intent = new Intent(MainActivity.this, DisplayLyrics.class);
                             intent.putExtra("LYRICS", lyrics);
@@ -98,6 +93,9 @@ public final class MainActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(final VolleyError error) {
                     Log.w(TAG, error.toString());
+                    Intent intent = new Intent(MainActivity.this, DisplayLyrics.class);
+                    intent.putExtra("LYRICS", "Lyrics Not Found. Please Try Again");
+                    startActivity(intent);
                 }
             });
             requestQueue.add(jsonObjectRequest);

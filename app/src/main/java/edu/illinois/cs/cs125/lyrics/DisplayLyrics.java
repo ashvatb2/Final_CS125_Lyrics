@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-//import edu.illinois.cs.cs125.lab11.R;
-
 public class DisplayLyrics extends AppCompatActivity {
 
     @Override
@@ -22,16 +20,6 @@ public class DisplayLyrics extends AppCompatActivity {
 
         final TextView helloTextView = (TextView) findViewById(R.id.result);
         helloTextView.setText(getIntent().getStringExtra("LYRICS"));
-//        Log.d(TAG, response.toString());
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
