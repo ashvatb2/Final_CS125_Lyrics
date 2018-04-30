@@ -76,8 +76,6 @@ public final class MainActivity extends AppCompatActivity {
                             JsonObject result = parser.parse(response.toString()).getAsJsonObject();
                             if (result.has("lyrics")) {
                                 lyrics = result.get("lyrics").getAsString();
-                            } else {
-                                lyrics = "Wrong input";
                             }
                             Intent intent = new Intent(MainActivity.this, DisplayLyrics.class);
                             intent.putExtra("LYRICS", lyrics);
@@ -89,13 +87,11 @@ public final class MainActivity extends AppCompatActivity {
                 public void onErrorResponse(final VolleyError error) {
                     Log.w(TAG, error.toString());
                     Intent intent = new Intent(MainActivity.this, DisplayLyrics.class);
-                    intent.putExtra("LYRICS", "Lyrics Not Found. Please Try Again");
+                    intent.putExtra("LYRICS", "Lyrics Not Found. Please Try Again.");
                     startActivity(intent);
                 }
             });
             requestQueue.add(jsonObjectRequest);
-        } catch (Exception e) {
-        }
-
+        } catch (Exception e) {}
     }
 }
